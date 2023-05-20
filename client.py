@@ -5,17 +5,15 @@ import random
 import logging
 
 import pygame
-import grpc
 
-from board import Board
-from classes import ResponseIterator, ThreadsRunner
+from domain.board import Board
+from helpers.classes import ResponseIterator
 from domain.ships import *
-from player import Player
+from domain.player import Player
 from proto_stuff.ShipBattle_pb2 import *
 from proto_stuff.ShipBattle_pb2_grpc import *
-from proto_stuff import ShipBattle_pb2
-from game import Game
-from grpc_parser import *
+from domain.game import Game
+from helpers.grpc_parser import *
 
 
 logging.basicConfig(level=logging.INFO, filename="logs.txt", filemode="w",

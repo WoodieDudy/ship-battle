@@ -1,12 +1,10 @@
-import socket
 import threading
 
-from game import Game
-from grpc_parser import python_ship_to_proto_ship, python_cell_to_proto_cell
-from player import Player
-from utils import generate_random_string
+from domain.game import Game
+from helpers.grpc_parser import python_cell_to_proto_cell
+from domain.player import Player
+from helpers.utils import generate_random_string
 from proto_stuff.ShipBattle_pb2 import *
-from proto_stuff import ShipBattle_pb2_grpc
 
 
 class Server:

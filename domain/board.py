@@ -1,7 +1,4 @@
-from dataclasses import dataclass
-from enum import Enum
-
-from core import CellType, Cell
+from domain.cell import CellType, Cell
 from domain.ships.base_ship import Ship
 
 

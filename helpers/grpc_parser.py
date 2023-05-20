@@ -1,4 +1,4 @@
-from core import Cell, CellType
+from domain.cell import Cell, CellType
 from proto_stuff import ShipBattle_pb2
 from domain.ships import *
 

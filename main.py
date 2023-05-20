@@ -4,12 +4,11 @@ import traceback
 
 import grpc
 
-from grpc_parser import *
-from player import Player
+from helpers.grpc_parser import *
+from domain.player import Player
 from proto_stuff.ShipBattle_pb2 import *
 from proto_stuff import ShipBattle_pb2_grpc
 from server import Server
-from classes import *
 
 
 class BattleshipServiceServicer(ShipBattle_pb2_grpc.BattleshipServiceServicer):
@@ -59,13 +58,15 @@ class BattleshipServiceServicer(ShipBattle_pb2_grpc.BattleshipServiceServicer):
             elif event == 'move_request':
                 request = request.move_request
                 yield EventResponse(
-                    move_response=self.server.make_move(request.game_id, request.player_id, request.point.x, request.point.y)
+                    move_response=self.server.make_move(request.game_id, request.player_id, request.point.x,
+                                                        request.point.y)
                 )
 
             elif event == 'quit_request':
                 request = request.quit_request
                 key = f'{request.game_id}{request.player_id}'
-                self.enemy_moves[key].append(EnemyMoveResponse(status=ShipBattle_pb2.EnemyMoveStatus.Value('ENEMY_LEAVE')))
+                self.enemy_moves[key].append(
+                    EnemyMoveResponse(status=ShipBattle_pb2.EnemyMoveStatus.Value('ENEMY_LEAVE')))
             else:
                 raise Exception(f"Unknown event: {event}")
 
@@ -80,6 +81,7 @@ class BattleshipServiceServicer(ShipBattle_pb2_grpc.BattleshipServiceServicer):
                 status=enemy_move.status,
                 point=enemy_move.point
             )
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

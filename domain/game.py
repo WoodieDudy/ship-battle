@@ -1,7 +1,7 @@
 from board import Board
-from core import Cell, CellType
+from domain.cell import Cell, CellType
 from player import Player
-from utils import generate_random_string
+from helpers.utils import generate_random_string
 
 
 class Game:
