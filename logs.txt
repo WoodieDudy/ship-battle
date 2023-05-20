@@ -1,0 +1,608 @@
+2023-05-20 14:20:33.233 INFO client - process_requests_loop: create_game_response {
+  game_id: "rwcjvnriqw"
+  player_id: "tqkaqpkzzn"
+}
+
+2023-05-20 14:20:33.234 INFO client - process_requests_loop: game id: rwcjvnriqw, player id: tqkaqpkzzn
+2023-05-20 14:20:33.234 INFO client - process_requests_loop: Added to queue
+2023-05-20 14:20:33.234 INFO client - listen_enemy_moves: Amogus
+2023-05-20 14:20:43.265 INFO client - process_requests_loop: create_game_response {
+  game_id: "rwcjvnriqw"
+  player_id: "tqkaqpkzzn"
+  status: READY
+}
+
+2023-05-20 14:20:43.265 INFO client - process_requests_loop: Ready
+2023-05-20 14:20:52.786 INFO client - process_requests_loop: move_response {
+  status: TURN
+  revealed_cells {
+    point {
+      y: 2
+    }
+    type: SHIP
+  }
+  revealed_cells {
+    point {
+      y: 1
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      y: 3
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 1
+      y: 1
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 1
+      y: 2
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 1
+      y: 3
+    }
+    type: EMPTY_HIT
+  }
+}
+
+2023-05-20 14:21:00.314 INFO client - listen_enemy_moves: Enemy turn2
+2023-05-20 14:21:12.336 INFO client - process_requests_loop: move_response {
+  status: TURN
+  revealed_cells {
+    point {
+      x: 2
+      y: 5
+    }
+    type: SHIP_HIT
+  }
+}
+
+2023-05-20 14:21:12.519 INFO client - process_requests_loop: move_response {
+  status: NOT_YOUR_TURN
+}
+
+2023-05-20 14:21:12.520 INFO client - process_requests_loop: Not your turn
+2023-05-20 14:21:16.352 INFO client - listen_enemy_moves: Enemy turn2
+2023-05-20 14:21:16.843 INFO client - process_requests_loop: move_response {
+  status: TURN
+  revealed_cells {
+    point {
+      x: 3
+      y: 5
+    }
+    type: SHIP_HIT
+  }
+}
+
+2023-05-20 14:21:16.845 INFO client - process_requests_loop: move_response {
+  status: NOT_YOUR_TURN
+}
+
+2023-05-20 14:21:16.846 INFO client - process_requests_loop: Not your turn
+2023-05-20 14:21:19.361 INFO client - listen_enemy_moves: Enemy turn2
+2023-05-20 14:21:21.737 INFO client - process_requests_loop: move_response {
+  status: TURN
+  revealed_cells {
+    point {
+      x: 1
+      y: 5
+    }
+    type: SHIP
+  }
+  revealed_cells {
+    point {
+      x: 2
+      y: 5
+    }
+    type: SHIP
+  }
+  revealed_cells {
+    point {
+      x: 3
+      y: 5
+    }
+    type: SHIP
+  }
+  revealed_cells {
+    point {
+      y: 4
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      y: 5
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      y: 6
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 1
+      y: 4
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 1
+      y: 6
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 2
+      y: 4
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 2
+      y: 6
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 3
+      y: 4
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 3
+      y: 6
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 4
+      y: 4
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 4
+      y: 5
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 4
+      y: 6
+    }
+    type: EMPTY_HIT
+  }
+}
+
+2023-05-20 14:21:21.739 INFO client - process_requests_loop: move_response {
+  status: NOT_YOUR_TURN
+}
+
+2023-05-20 14:21:21.740 INFO client - process_requests_loop: Not your turn
+2023-05-20 14:21:26.384 INFO client - listen_enemy_moves: Enemy turn2
+2023-05-20 14:21:30.099 INFO client - process_requests_loop: move_response {
+  status: TURN
+  revealed_cells {
+    point {
+      x: 2
+      y: 8
+    }
+    type: EMPTY_HIT
+  }
+}
+
+2023-05-20 14:21:30.102 INFO client - process_requests_loop: move_response {
+  status: NOT_YOUR_TURN
+}
+
+2023-05-20 14:21:30.102 INFO client - process_requests_loop: Not your turn
+2023-05-20 14:21:36.416 INFO client - listen_enemy_moves: Enemy turn2
+2023-05-20 14:21:38.496 INFO client - process_requests_loop: move_response {
+  status: TURN
+  revealed_cells {
+    point {
+      x: 1
+      y: 8
+    }
+    type: SHIP
+  }
+  revealed_cells {
+    point {
+      y: 7
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      y: 8
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      y: 9
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 1
+      y: 7
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 1
+      y: 9
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 2
+      y: 7
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 2
+      y: 8
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 2
+      y: 9
+    }
+    type: EMPTY_HIT
+  }
+}
+
+2023-05-20 14:21:38.497 INFO client - process_requests_loop: move_response {
+  status: NOT_YOUR_TURN
+}
+
+2023-05-20 14:21:38.499 INFO client - process_requests_loop: Not your turn
+2023-05-20 14:21:45.441 INFO client - listen_enemy_moves: Enemy turn2
+2023-05-20 14:21:50.938 INFO client - process_requests_loop: move_response {
+  status: TURN
+  revealed_cells {
+    point {
+      x: 3
+      y: 1
+    }
+    type: SHIP
+  }
+  revealed_cells {
+    point {
+      x: 2
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 2
+      y: 1
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 2
+      y: 2
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 3
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 3
+      y: 2
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 4
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 4
+      y: 1
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 4
+      y: 2
+    }
+    type: EMPTY_HIT
+  }
+}
+
+2023-05-20 14:21:50.941 INFO client - process_requests_loop: move_response {
+  status: NOT_YOUR_TURN
+}
+
+2023-05-20 14:21:50.941 INFO client - process_requests_loop: Not your turn
+2023-05-20 14:21:58.477 INFO client - listen_enemy_moves: Enemy turn2
+2023-05-20 14:22:07.605 INFO client - process_requests_loop: move_response {
+  status: TURN
+  revealed_cells {
+    point {
+      x: 6
+      y: 2
+    }
+    type: SHIP_HIT
+  }
+}
+
+2023-05-20 14:22:07.607 INFO client - process_requests_loop: move_response {
+  status: NOT_YOUR_TURN
+}
+
+2023-05-20 14:22:07.608 INFO client - process_requests_loop: Not your turn
+2023-05-20 14:22:11.516 INFO client - listen_enemy_moves: Enemy turn2
+2023-05-20 14:22:11.988 INFO client - process_requests_loop: move_response {
+  status: TURN
+  revealed_cells {
+    point {
+      x: 7
+      y: 2
+    }
+    type: SHIP_HIT
+  }
+}
+
+2023-05-20 14:22:11.988 INFO client - process_requests_loop: move_response {
+  status: NOT_YOUR_TURN
+}
+
+2023-05-20 14:22:11.989 INFO client - process_requests_loop: Not your turn
+2023-05-20 14:22:14.523 INFO client - listen_enemy_moves: Enemy turn2
+2023-05-20 14:22:15.211 INFO client - process_requests_loop: move_response {
+  status: TURN
+  revealed_cells {
+    point {
+      x: 6
+      y: 2
+    }
+    type: SHIP
+  }
+  revealed_cells {
+    point {
+      x: 7
+      y: 2
+    }
+    type: SHIP
+  }
+  revealed_cells {
+    point {
+      x: 8
+      y: 2
+    }
+    type: SHIP
+  }
+  revealed_cells {
+    point {
+      x: 5
+      y: 1
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 5
+      y: 2
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 5
+      y: 3
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 6
+      y: 1
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 6
+      y: 3
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 7
+      y: 1
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 7
+      y: 3
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 8
+      y: 1
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 8
+      y: 3
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 9
+      y: 1
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 9
+      y: 2
+    }
+    type: EMPTY_HIT
+  }
+  revealed_cells {
+    point {
+      x: 9
+      y: 3
+    }
+    type: EMPTY_HIT
+  }
+}
+
+2023-05-20 14:22:15.211 INFO client - process_requests_loop: move_response {
+  status: NOT_YOUR_TURN
+}
+
+2023-05-20 14:22:15.211 INFO client - process_requests_loop: Not your turn
+2023-05-20 14:22:19.533 INFO client - listen_enemy_moves: Enemy turn2
+2023-05-20 14:22:21.141 INFO client - process_requests_loop: move_response {
+  status: TURN
+  revealed_cells {
+    point {
+      x: 9
+      y: 8
+    }
+    type: SHIP_HIT
+  }
+}
+
+2023-05-20 14:22:21.145 INFO client - process_requests_loop: move_response {
+  status: NOT_YOUR_TURN
+}
+
+2023-05-20 14:22:21.145 INFO client - process_requests_loop: Not your turn
+2023-05-20 14:22:23.546 INFO client - listen_enemy_moves: Enemy turn2
+2023-05-20 14:22:24.284 INFO client - process_requests_loop: move_response {
+  status: TURN
+  revealed_cells {
+    point {
+      x: 8
+      y: 8
+    }
+    type: SHIP_HIT
+  }
+}
+
+2023-05-20 14:22:24.284 INFO client - process_requests_loop: move_response {
+  status: NOT_YOUR_TURN
+}
+
+2023-05-20 14:22:24.284 INFO client - process_requests_loop: Not your turn
+2023-05-20 14:22:26.557 INFO client - listen_enemy_moves: Enemy win2
+2023-05-20 14:22:27.962 INFO client - process_requests_loop: move_response {
+  status: TURN
+  revealed_cells {
+    point {
+      x: 8
+      y: 7
+    }
+    type: SHIP_HIT
+  }
+}
+
+2023-05-20 14:22:27.966 INFO client - process_requests_loop: move_response {
+  status: NOT_YOUR_TURN
+}
+
+2023-05-20 14:22:27.966 INFO client - process_requests_loop: Not your turn
+2023-05-20 14:22:41.612 INFO client - listen_enemy_moves: Enemy win2
+2023-05-20 14:22:46.408 INFO client - process_requests_loop: move_response {
+  status: TURN
+  revealed_cells {
+    point {
+      x: 4
+      y: 7
+    }
+    type: EMPTY_HIT
+  }
+}
+
+2023-05-20 14:22:46.409 INFO client - process_requests_loop: move_response {
+  status: NOT_YOUR_TURN
+}
+
+2023-05-20 14:22:46.409 INFO client - process_requests_loop: Not your turn
+2023-05-20 14:22:47.359 INFO client - process_requests_loop: move_response {
+  status: NOT_YOUR_TURN
+}
+
+2023-05-20 14:22:47.360 INFO client - process_requests_loop: Not your turn
+2023-05-20 14:22:47.553 INFO client - process_requests_loop: move_response {
+  status: NOT_YOUR_TURN
+}
+
+2023-05-20 14:22:47.554 INFO client - process_requests_loop: Not your turn
+2023-05-20 14:22:49.635 INFO client - listen_enemy_moves: Enemy win2
+2023-05-20 14:22:51.112 INFO client - process_requests_loop: move_response {
+  status: TURN
+  revealed_cells {
+    point {
+      x: 5
+      y: 8
+    }
+    type: EMPTY_HIT
+  }
+}
+
+2023-05-20 14:22:51.113 INFO client - process_requests_loop: move_response {
+  status: NOT_YOUR_TURN
+}
+
+2023-05-20 14:22:51.113 INFO client - process_requests_loop: Not your turn
+2023-05-20 14:22:55.651 INFO client - listen_enemy_moves: Enemy win2
+2023-05-20 14:23:14.541 INFO client - main: NoneType: None
+

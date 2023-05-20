@@ -1,0 +1,118 @@
+syntax = "proto3";
+
+package shipbattle;
+
+
+enum CellType {
+  EMPTY = 0;
+  EMPTY_HIT = 1;
+  SHIP_HIT = 2;
+  SHIP = 3;
+  HIDDEN = 4;
+}
+
+message Point {
+  int32 x = 1;
+  int32 y = 2;
+}
+
+message Cell {
+  Point point = 1;
+  CellType type = 2;
+}
+
+enum ShipType {
+  SMALL = 0;  // 1x1
+  SUBMARINE = 1;  // 1x3
+  SQUARE = 2;    // 2x2
+  DIAGONAL = 3; // диагональка
+}
+
+message Ship {
+  ShipType ship_type = 1;
+  int32 x = 2;
+  int32 y = 3;
+}
+
+
+message CreateGameRequest {
+  optional string game_id = 1;
+  bool wait_for_friend = 2;
+  repeated Ship ships = 3; // список кораблей, которые игрок хочет поставить
+}
+
+enum CreateGameStatus {
+  ADDED_TO_Q = 0;
+  READY = 1;
+  GAME_ID_DOENT_EXIST = 2;
+}
+
+
+message CreateGameResponse {
+  optional string game_id = 1;
+  optional string player_id = 2;
+  CreateGameStatus status = 3;
+}
+
+enum MoveStatus {
+  GAME_NOT_STARTED = 0;
+  INVALID_COORDINATES = 1;
+  TURN = 2;
+  WIN = 3;
+  NOT_YOUR_TURN = 4;
+}
+
+enum EnemyMoveStatus {
+  ENEMY_LEAVE = 0;
+  ENEMY_TURN = 1;
+  ENEMY_WIN = 2;
+}
+
+message QuitRequest {
+  string game_id = 1;
+  string player_id = 2;
+}
+
+message MoveRequest {
+  string game_id = 1;
+  string player_id = 2;
+  Point point = 3;
+}
+
+message MoveResponse {
+  MoveStatus status = 1;
+  repeated Cell revealed_cells = 2;
+}
+
+message EnemyMoveResponse {
+  EnemyMoveStatus status = 1;
+  Point point = 2;
+}
+
+
+message EventRequest {
+  oneof event {
+    CreateGameRequest create_game_request = 1;
+    MoveRequest move_request = 2;
+    QuitRequest quit_request = 3;
+  }
+}
+
+message EventResponse {
+  oneof event {
+    MoveResponse move_response = 1;
+    CreateGameResponse create_game_response = 3;
+  }
+}
+
+message EnemyMovesRequest {
+  string game_id = 1;
+  string player_id = 2;
+}
+
+
+service BattleshipService {
+  rpc listenEvents(stream EventRequest) returns (stream EventResponse);
+  rpc listenEnemyMoves(EnemyMovesRequest) returns (stream EnemyMoveResponse);
+
+}
