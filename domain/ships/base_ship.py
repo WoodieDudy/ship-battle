@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from core import Cell, CellType
+from domain.cell import Cell, CellType
 
 
 class Ship(ABC):

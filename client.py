@@ -3,6 +3,7 @@ import traceback
 import sys
 import random
 import logging
+from typing import Optional
 
 import pygame
 
@@ -12,7 +13,7 @@ from domain.ships import *
 from domain.player import Player
 from proto_stuff.ShipBattle_pb2 import *
 from proto_stuff.ShipBattle_pb2_grpc import *
-from domain.game import Game
+from domain.games.client_game import ClientGame
 from helpers.grpc_parser import *
 
 
@@ -44,9 +45,9 @@ ships = [
 
 
 class GameInterface:
-    def __init__(self, game: Game):
+    def __init__(self, game: ClientGame):
         self.game = game
-        self.board_width, self.board_height = len(self.game.boards[0]), len(self.game.boards[1])
+        self.board_width, self.board_height = game.board_size, game.board_size
         self.cell_width, self.cell_height = BOARD_WIDTH // self.board_width, BOARD_HEIGHT // self.board_height
         self.current_status = "Waiting for the opponent..."
 
@@ -92,14 +93,14 @@ class GameInterface:
         self._set_status_text()
         pygame.display.flip()
 
-    def get_cell_coords(self, mouse_x, mouse_y) -> tuple[Board, int, int]:
+    def get_cell_coords(self, mouse_x, mouse_y) -> Optional[tuple[Board, int, int]]:
         for board_pos, board in [(BOARD1_POS, self.game.boards[0]), (BOARD2_POS, self.game.boards[1])]:
             if board_pos[0] <= mouse_y < board_pos[0] + BOARD_WIDTH and \
                     board_pos[1] <= mouse_x < board_pos[1] + BOARD_HEIGHT:
                 board_x = (mouse_x - board_pos[1]) // self.cell_width
                 board_y = (mouse_y - board_pos[0]) // self.cell_height
                 return board, board_x, board_y
-        return None, None, None
+        return None
 
     def _set_text(self, string, coordx, coordy, font_size):
         font = pygame.font.SysFont('arial', font_size)
@@ -140,14 +141,6 @@ def main():
                 break
         player_ships.append(ship)
 
-    game = Game(
-        Player(id='1', ships=player_ships),
-        None,
-        board_size=BOARD_CELL_SIZE
-    )
-
-    game_interface = GameInterface(game)
-    game_interface.render()
 
     response_iterator = ResponseIterator()
     ship_battle_channel = _create_channel()
@@ -158,11 +151,37 @@ def main():
             create_game_request=CreateGameRequest(
                 ships=[
                     python_ship_to_proto_ship(ship)
-                    for ship in game.players[0].ships
+                    for ship in player_ships
                 ],
                 wait_for_friend=False
             )
         ))
+
+    for response in ship_client.listenEvents(response_iterator):
+        logging.info(str(response))
+        event = response.WhichOneof('event')
+        if event == 'create_game_response':
+            response = response.create_game_response
+            if response.status == CreateGameStatus.Value("GAME_ID_DOENT_EXIST"):
+                logging.info('Game id doesnt exist')
+            elif response.status == CreateGameStatus.Value("ADDED_TO_Q"):
+                game_id = response.game_id
+                player_id = response.player_id
+                logging.info(f"game id: {game_id}, player id: {player_id}")
+                logging.info('Added to queue')
+
+            elif response.status == CreateGameStatus.Value("READY"):
+                logging.info('Ready')
+                break
+
+    game = ClientGame(
+        Player(id=player_id, ships=player_ships),
+        board_size=BOARD_CELL_SIZE
+    )
+    game.id = game_id
+    game.started = True
+    game_interface = GameInterface(game)
+    game_interface.render()
 
     def interface_loop(request_iter: ResponseIterator):
         running = True
@@ -172,8 +191,11 @@ def main():
                 if event.type == pygame.QUIT:
                     running = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    b, x, y = game_interface.get_cell_coords(*pygame.mouse.get_pos())
-                    if b == game.boards[0] or not game.start:
+                    res = game_interface.get_cell_coords(*pygame.mouse.get_pos())
+                    if res is None:
+                        continue
+                    b, x, y = res
+                    if b == game.boards[0] or not game.started:
                         continue
                     print(f"Clicked on {x} {y}")
                     request_iter.add_response(
@@ -195,7 +217,10 @@ def main():
                     logging.info("Quit")
                     game_interface.quit()
                 else:
-                    b, x, y = game_interface.get_cell_coords(*pygame.mouse.get_pos())
+                    res = game_interface.get_cell_coords(*pygame.mouse.get_pos())
+                    if res is None:
+                        continue
+                    b, x, y = res
                     game_interface.highlight_cell(b, x, y)
 
         pygame.quit()
@@ -219,7 +244,7 @@ def main():
 
                 elif response.status == CreateGameStatus.Value("READY"):
                     logging.info('Ready')
-                    game.start = True
+                    game.started = True
 
             elif event == 'move_response':
                 response = response.move_response
@@ -262,7 +287,7 @@ def main():
                 logging.info('Enemy win2')
                 game_interface.current_status = "Ты проиграл"
             elif response.status == EnemyMoveStatus.Value("ENEMY_TURN"):
-                revealed_cells, win = game.make_enemy_turn(response.point.x, response.point.y)
+                revealed_cells = game.make_enemy_turn(response.point.x, response.point.y)
                 game.reveal_my_cells(revealed_cells)
                 logging.info('Enemy turn2')
                 game_interface.current_status = "Твой ход"
@@ -272,12 +297,15 @@ def main():
 
     process_requests_thread = threading.Thread(target=process_requests_loop, args=(response_iterator,))
     process_requests_thread.start()
+    listen_enemy_moves_thread = threading.Thread(target=listen_enemy_moves, args=(ship_client, game))
+    listen_enemy_moves_thread.start()
 
     try:
         interface_loop(response_iterator)
     finally:
         logging.info(traceback.format_exc())
         process_requests_thread.join()
+        listen_enemy_moves_thread.join()
 
 
 if __name__ == "__main__":
