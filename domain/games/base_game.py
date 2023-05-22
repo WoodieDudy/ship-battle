@@ -32,7 +32,7 @@ class Game(abc.ABC):
         return generate_random_string(10)
 
     @abc.abstractmethod
-    def give_turn_to_next_player(self): ...
+    def give_turn_to_next_player(self, revealed_cells: list[Cell]): ...
 
     @staticmethod
     def _shoot(x: int, y: int, board: Board) -> list[Cell]:
@@ -61,5 +61,5 @@ class Game(abc.ABC):
         board = self.player_id_to_board[enemy_id]
         cells_to_reveal = self._shoot(x, y, board)
         win = self.win_condition(board)
-        self.give_turn_to_next_player()
+        self.give_turn_to_next_player(cells_to_reveal)
         return cells_to_reveal, win
