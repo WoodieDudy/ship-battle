@@ -1,0 +1,6 @@
+colorama==0.4.4
+colorlog==6.6.0
+dependency_injector==4.40.0
+grpcio==1.50.0
+protobuf==3.20.2
+pygame==2.4.0
