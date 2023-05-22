@@ -26,19 +26,11 @@ class ClientGame(Game):
         self.enemy_id = self.players_ids[ENEMY]
 
     def give_turn_to_next_player(self, revealed_cells: list[Cell]):
-        if len(revealed_cells) <= 1:
+        if all((cell.type != CellType.SHIP_HIT for cell in revealed_cells)):
             self._current_player_id = 1 - self._current_player_id
-
-    def player_shoot(self, x: int, y: int) -> list[Cell]:
-        return self._shoot(x, y, self.player_id_to_board[self.enemy_id])
 
     def enemy_shoot(self, x: int, y: int) -> list[Cell]:
         return self._shoot(x, y, self.player_id_to_board[self.player_id])
-
-    def make_player_turn(self, x: int, y: int) -> list[Cell]:
-        cells_to_reveal = self.player_shoot(x, y)
-        self.give_turn_to_next_player(cells_to_reveal)
-        return cells_to_reveal
 
     def make_enemy_turn(self, x: int, y: int) -> list[Cell]:
         cells_to_reveal = self.enemy_shoot(x, y)

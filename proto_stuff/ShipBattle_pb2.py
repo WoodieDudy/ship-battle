@@ -15,7 +15,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10ShipBattle.proto\x12\nshipbattle\"\x1d\n\x05Point\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\"L\n\x04\x43\x65ll\x12 \n\x05point\x18\x01 \x01(\x0b\x32\x11.shipbattle.Point\x12\"\n\x04type\x18\x02 \x01(\x0e\x32\x14.shipbattle.CellType\"E\n\x04Ship\x12\'\n\tship_type\x18\x01 \x01(\x0e\x32\x14.shipbattle.ShipType\x12\t\n\x01x\x18\x02 \x01(\x05\x12\t\n\x01y\x18\x03 \x01(\x05\"o\n\x11\x43reateGameRequest\x12\x14\n\x07game_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x17\n\x0fwait_for_friend\x18\x02 \x01(\x08\x12\x1f\n\x05ships\x18\x03 \x03(\x0b\x32\x10.shipbattle.ShipB\n\n\x08_game_id\"\x8a\x01\n\x12\x43reateGameResponse\x12\x14\n\x07game_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tplayer_id\x18\x02 \x01(\tH\x01\x88\x01\x01\x12,\n\x06status\x18\x03 \x01(\x0e\x32\x1c.shipbattle.CreateGameStatusB\n\n\x08_game_idB\x0c\n\n_player_id\"1\n\x0bQuitRequest\x12\x0f\n\x07game_id\x18\x01 \x01(\t\x12\x11\n\tplayer_id\x18\x02 \x01(\t\"S\n\x0bMoveRequest\x12\x0f\n\x07game_id\x18\x01 \x01(\t\x12\x11\n\tplayer_id\x18\x02 \x01(\t\x12 \n\x05point\x18\x03 \x01(\x0b\x32\x11.shipbattle.Point\"`\n\x0cMoveResponse\x12&\n\x06status\x18\x01 \x01(\x0e\x32\x16.shipbattle.MoveStatus\x12(\n\x0erevealed_cells\x18\x02 \x03(\x0b\x32\x10.shipbattle.Cell\"b\n\x11\x45nemyMoveResponse\x12+\n\x06status\x18\x01 \x01(\x0e\x32\x1b.shipbattle.EnemyMoveStatus\x12 \n\x05point\x18\x02 \x01(\x0b\x32\x11.shipbattle.Point\"\xb7\x01\n\x0c\x45ventRequest\x12<\n\x13\x63reate_game_request\x18\x01 \x01(\x0b\x32\x1d.shipbattle.CreateGameRequestH\x00\x12/\n\x0cmove_request\x18\x02 \x01(\x0b\x32\x17.shipbattle.MoveRequestH\x00\x12/\n\x0cquit_request\x18\x03 \x01(\x0b\x32\x17.shipbattle.QuitRequestH\x00\x42\x07\n\x05\x65vent\"\x8b\x01\n\rEventResponse\x12\x31\n\rmove_response\x18\x01 \x01(\x0b\x32\x18.shipbattle.MoveResponseH\x00\x12>\n\x14\x63reate_game_response\x18\x03 \x01(\x0b\x32\x1e.shipbattle.CreateGameResponseH\x00\x42\x07\n\x05\x65vent\"7\n\x11\x45nemyMovesRequest\x12\x0f\n\x07game_id\x18\x01 \x01(\t\x12\x11\n\tplayer_id\x18\x02 \x01(\t*H\n\x08\x43\x65llType\x12\t\n\x05\x45MPTY\x10\x00\x12\r\n\tEMPTY_HIT\x10\x01\x12\x0c\n\x08SHIP_HIT\x10\x02\x12\x08\n\x04SHIP\x10\x03\x12\n\n\x06HIDDEN\x10\x04*>\n\x08ShipType\x12\t\n\x05SMALL\x10\x00\x12\r\n\tSUBMARINE\x10\x01\x12\n\n\x06SQUARE\x10\x02\x12\x0c\n\x08\x44IAGONAL\x10\x03*F\n\x10\x43reateGameStatus\x12\x0e\n\nADDED_TO_Q\x10\x00\x12\t\n\x05READY\x10\x01\x12\x17\n\x13GAME_ID_DOENT_EXIST\x10\x02*a\n\nMoveStatus\x12\x14\n\x10GAME_NOT_STARTED\x10\x00\x12\x17\n\x13INVALID_COORDINATES\x10\x01\x12\x08\n\x04TURN\x10\x02\x12\x07\n\x03WIN\x10\x03\x12\x11\n\rNOT_YOUR_TURN\x10\x04*A\n\x0f\x45nemyMoveStatus\x12\x0f\n\x0b\x45NEMY_LEAVE\x10\x00\x12\x0e\n\nENEMY_TURN\x10\x01\x12\r\n\tENEMY_WIN\x10\x02\x32\xb0\x01\n\x11\x42\x61ttleshipService\x12G\n\x0clistenEvents\x12\x18.shipbattle.EventRequest\x1a\x19.shipbattle.EventResponse(\x01\x30\x01\x12R\n\x10listenEnemyMoves\x12\x1d.shipbattle.EnemyMovesRequest\x1a\x1d.shipbattle.EnemyMoveResponse0\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10ShipBattle.proto\x12\nshipbattle\"\x1d\n\x05Point\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\"L\n\x04\x43\x65ll\x12 \n\x05point\x18\x01 \x01(\x0b\x32\x11.shipbattle.Point\x12\"\n\x04type\x18\x02 \x01(\x0e\x32\x14.shipbattle.CellType\"E\n\x04Ship\x12\'\n\tship_type\x18\x01 \x01(\x0e\x32\x14.shipbattle.ShipType\x12\t\n\x01x\x18\x02 \x01(\x05\x12\t\n\x01y\x18\x03 \x01(\x05\"o\n\x11\x43reateGameRequest\x12\x14\n\x07game_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x17\n\x0fwait_for_friend\x18\x02 \x01(\x08\x12\x1f\n\x05ships\x18\x03 \x03(\x0b\x32\x10.shipbattle.ShipB\n\n\x08_game_id\"\x8a\x01\n\x12\x43reateGameResponse\x12\x14\n\x07game_id\x18\x01 \x01(\tH\x00\x88\x01\x01\x12\x16\n\tplayer_id\x18\x02 \x01(\tH\x01\x88\x01\x01\x12,\n\x06status\x18\x03 \x01(\x0e\x32\x1c.shipbattle.CreateGameStatusB\n\n\x08_game_idB\x0c\n\n_player_id\"1\n\x0bQuitRequest\x12\x0f\n\x07game_id\x18\x01 \x01(\t\x12\x11\n\tplayer_id\x18\x02 \x01(\t\"S\n\x0bMoveRequest\x12\x0f\n\x07game_id\x18\x01 \x01(\t\x12\x11\n\tplayer_id\x18\x02 \x01(\t\x12 \n\x05point\x18\x03 \x01(\x0b\x32\x11.shipbattle.Point\"`\n\x0cMoveResponse\x12&\n\x06status\x18\x01 \x01(\x0e\x32\x16.shipbattle.MoveStatus\x12(\n\x0erevealed_cells\x18\x02 \x03(\x0b\x32\x10.shipbattle.Cell\"b\n\x11\x45nemyMoveResponse\x12+\n\x06status\x18\x01 \x01(\x0e\x32\x1b.shipbattle.EnemyMoveStatus\x12 \n\x05point\x18\x02 \x01(\x0b\x32\x11.shipbattle.Point\"\xb7\x01\n\x0c\x45ventRequest\x12<\n\x13\x63reate_game_request\x18\x01 \x01(\x0b\x32\x1d.shipbattle.CreateGameRequestH\x00\x12/\n\x0cmove_request\x18\x02 \x01(\x0b\x32\x17.shipbattle.MoveRequestH\x00\x12/\n\x0cquit_request\x18\x03 \x01(\x0b\x32\x17.shipbattle.QuitRequestH\x00\x42\x07\n\x05\x65vent\"\x8b\x01\n\rEventResponse\x12\x31\n\rmove_response\x18\x01 \x01(\x0b\x32\x18.shipbattle.MoveResponseH\x00\x12>\n\x14\x63reate_game_response\x18\x03 \x01(\x0b\x32\x1e.shipbattle.CreateGameResponseH\x00\x42\x07\n\x05\x65vent\"7\n\x11\x45nemyMovesRequest\x12\x0f\n\x07game_id\x18\x01 \x01(\t\x12\x11\n\tplayer_id\x18\x02 \x01(\t*H\n\x08\x43\x65llType\x12\t\n\x05\x45MPTY\x10\x00\x12\r\n\tEMPTY_HIT\x10\x01\x12\x0c\n\x08SHIP_HIT\x10\x02\x12\x08\n\x04SHIP\x10\x03\x12\n\n\x06HIDDEN\x10\x04*>\n\x08ShipType\x12\t\n\x05SMALL\x10\x00\x12\r\n\tSUBMARINE\x10\x01\x12\n\n\x06SQUARE\x10\x02\x12\x0c\n\x08\x44IAGONAL\x10\x03*t\n\x10\x43reateGameStatus\x12\x0e\n\nADDED_TO_Q\x10\x00\x12\x17\n\x13GAME_ID_DOENT_EXIST\x10\x01\x12\x1a\n\x16GAME_STARTED_YOUR_TURN\x10\x02\x12\x1b\n\x17GAME_STARTED_ENEMY_TURN\x10\x03*a\n\nMoveStatus\x12\x14\n\x10GAME_NOT_STARTED\x10\x00\x12\x17\n\x13INVALID_COORDINATES\x10\x01\x12\x08\n\x04TURN\x10\x02\x12\x07\n\x03WIN\x10\x03\x12\x11\n\rNOT_YOUR_TURN\x10\x04*A\n\x0f\x45nemyMoveStatus\x12\x0f\n\x0b\x45NEMY_LEAVE\x10\x00\x12\x0e\n\nENEMY_TURN\x10\x01\x12\r\n\tENEMY_WIN\x10\x02\x32\xb0\x01\n\x11\x42\x61ttleshipService\x12G\n\x0clistenEvents\x12\x18.shipbattle.EventRequest\x1a\x19.shipbattle.EventResponse(\x01\x30\x01\x12R\n\x10listenEnemyMoves\x12\x1d.shipbattle.EnemyMovesRequest\x1a\x1d.shipbattle.EnemyMoveResponse0\x01\x62\x06proto3')
 
 _CELLTYPE = DESCRIPTOR.enum_types_by_name['CellType']
 CellType = enum_type_wrapper.EnumTypeWrapper(_CELLTYPE)
@@ -37,8 +37,9 @@ SUBMARINE = 1
 SQUARE = 2
 DIAGONAL = 3
 ADDED_TO_Q = 0
-READY = 1
-GAME_ID_DOENT_EXIST = 2
+GAME_ID_DOENT_EXIST = 1
+GAME_STARTED_YOUR_TURN = 2
+GAME_STARTED_ENEMY_TURN = 3
 GAME_NOT_STARTED = 0
 INVALID_COORDINATES = 1
 TURN = 2
@@ -154,11 +155,11 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _SHIPTYPE._serialized_start=1259
   _SHIPTYPE._serialized_end=1321
   _CREATEGAMESTATUS._serialized_start=1323
-  _CREATEGAMESTATUS._serialized_end=1393
-  _MOVESTATUS._serialized_start=1395
-  _MOVESTATUS._serialized_end=1492
-  _ENEMYMOVESTATUS._serialized_start=1494
-  _ENEMYMOVESTATUS._serialized_end=1559
+  _CREATEGAMESTATUS._serialized_end=1439
+  _MOVESTATUS._serialized_start=1441
+  _MOVESTATUS._serialized_end=1538
+  _ENEMYMOVESTATUS._serialized_start=1540
+  _ENEMYMOVESTATUS._serialized_end=1605
   _POINT._serialized_start=32
   _POINT._serialized_end=61
   _CELL._serialized_start=63
@@ -183,6 +184,6 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _EVENTRESPONSE._serialized_end=1126
   _ENEMYMOVESREQUEST._serialized_start=1128
   _ENEMYMOVESREQUEST._serialized_end=1183
-  _BATTLESHIPSERVICE._serialized_start=1562
-  _BATTLESHIPSERVICE._serialized_end=1738
+  _BATTLESHIPSERVICE._serialized_start=1608
+  _BATTLESHIPSERVICE._serialized_end=1784
 # @@protoc_insertion_point(module_scope)

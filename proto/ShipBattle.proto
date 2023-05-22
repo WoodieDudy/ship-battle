@@ -43,8 +43,9 @@ message CreateGameRequest {
 
 enum CreateGameStatus {
   ADDED_TO_Q = 0;
-  READY = 1;
-  GAME_ID_DOENT_EXIST = 2;
+  GAME_ID_DOENT_EXIST = 1;
+  GAME_STARTED_YOUR_TURN = 2;
+  GAME_STARTED_ENEMY_TURN = 3;
 }
 
 

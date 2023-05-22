@@ -25,7 +25,7 @@ class Game(abc.ABC):
         self.players: list[Player] = [player1, player2]
         self._current_player_id = 0
 
-        self.started = False
+        self.running = True
 
     @staticmethod
     def generate_id():
@@ -36,7 +36,7 @@ class Game(abc.ABC):
 
     @staticmethod
     def _shoot(x: int, y: int, board: Board) -> list[Cell]:
-        if board.field[y][x].type == CellType.SHIP:
+        if board.field[y][x].type in [CellType.SHIP, CellType.SHIP_HIT]:
             board.field[y][x].type = CellType.SHIP_HIT
             ship = board.get_ship_by_coords(x, y)
             if ship is not None and ship.is_sunk(board.field):

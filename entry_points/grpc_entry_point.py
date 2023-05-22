@@ -49,11 +49,15 @@ class BattleshipServiceServicer(ShipBattle_pb2_grpc.BattleshipServiceServicer):
                         break
                     sleep(1)
 
+                if game.is_current_player(player_id):
+                    status = "GAME_STARTED_YOUR_TURN"
+                else:
+                    status = "GAME_STARTED_ENEMY_TURN"
                 yield EventResponse(
                     create_game_response=ShipBattle_pb2.CreateGameResponse(
                         game_id=game_id,
                         player_id=player_id,
-                        status=ShipBattle_pb2.CreateGameStatus.Value("READY")
+                        status=ShipBattle_pb2.CreateGameStatus.Value(status)
                     )
                 )
 

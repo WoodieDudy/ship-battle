@@ -1,5 +1,5 @@
 from domain.board import Board
-from domain.cell import Cell
+from domain.cell import Cell, CellType
 from domain.games.base_game import Game
 from domain.player import Player
 
@@ -26,5 +26,5 @@ class ServerGame(Game):
         return player_id == self.players_ids[self._current_player_id]
 
     def give_turn_to_next_player(self, revealed_cells: list[Cell]):
-        if len(revealed_cells) <= 1:
+        if all((cell.type != CellType.SHIP_HIT for cell in revealed_cells)):
             self._current_player_id = 1 - self._current_player_id

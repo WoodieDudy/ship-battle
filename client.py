@@ -111,6 +111,8 @@ class GameInterface:
         self.screen.blit(text, textRect)
 
     def quit(self):
+        logging.info("Quitting game")
+        pygame.display.quit()
         pygame.quit()
         sys.exit()
 
@@ -169,17 +171,24 @@ def main():
                 logging.info(f"game id: {game_id}, player id: {player_id}")
                 logging.info('Added to queue')
 
-            elif response.status == CreateGameStatus.Value("READY"):
-                logging.info('Ready')
+            elif response.status == CreateGameStatus.Value("GAME_STARTED_YOUR_TURN"):
+                logging.info('Ready Your turn')
+                first_game_status = 'Your turn'
                 break
+            elif response.status == CreateGameStatus.Value("GAME_STARTED_ENEMY_TURN"):
+                logging.info('Ready Enemy turn')
+                first_game_status = 'Enemy turn'
+                break
+            else:
+                raise Exception("Unknown status")
 
     game = ClientGame(
         Player(id=player_id, ships=player_ships),
         board_size=BOARD_CELL_SIZE
     )
     game.id = game_id
-    game.started = True
     game_interface = GameInterface(game)
+    game_interface.current_status = first_game_status
     game_interface.render()
 
     def interface_loop(request_iter: ResponseIterator):
@@ -194,25 +203,28 @@ def main():
                     if res is None:
                         continue
                     b, x, y = res
-                    if b == game.boards[0] or not game.started:
+                    if b == game.boards[0] or not game.running:
                         continue
                     print(f"Clicked on {x} {y}")
-                    request_iter.add_response(
-                        EventRequest(move_request=MoveRequest(
-                            point=Point(x=x, y=y),
-                            game_id=game.id,
-                            player_id=game.player_id),
+                    if b[y][x].type == CellType.HIDDEN:
+                        request_iter.add_response(
+                            EventRequest(move_request=MoveRequest(
+                                point=Point(x=x, y=y),
+                                game_id=game.id,
+                                player_id=game.player_id),
+                            )
                         )
-                    )
-                    print(f"Sent")
+                        print(f"Sent")
+                    else:
+                        print(f"Already clicked")
                 elif event.type == pygame.QUIT:
                     running = False
-                    request_iter.add_response(
-                        EventRequest(quit_request=QuitRequest(
-                            game_id=game.id,
-                            player_id=game.player_id
-                        ))
-                    )
+                    # request_iter.add_response(
+                    #     EventRequest(quit_request=QuitRequest(
+                    #         game_id=game.id,
+                    #         player_id=game.player_id
+                    #     ))
+                    # )
                     logging.info("Quit")
                     game_interface.quit()
                 else:
@@ -241,10 +253,6 @@ def main():
                     listen_enemy_moves_thread = threading.Thread(target=listen_enemy_moves, args=(ship_client, game))
                     listen_enemy_moves_thread.start()
 
-                elif response.status == CreateGameStatus.Value("READY"):
-                    logging.info('Ready')
-                    game.started = True
-
             elif event == 'move_response':
                 response = response.move_response
                 if response.status == MoveStatus.Value("NOT_YOUR_TURN"):
@@ -259,7 +267,8 @@ def main():
                         for cell in response.revealed_cells
                     ]
                     game.reveal_enemy_hit_cells(cells)
-                    game_interface.current_status = "Enemy turn"
+                    if all((cell.type != CellType.SHIP_HIT for cell in cells)):
+                        game_interface.current_status = "Enemy turn"
                 elif response.status == MoveStatus.Value("WIN"):
                     cells = [
                         proto_cell_to_python_cell(cell)
@@ -267,6 +276,7 @@ def main():
                     ]
                     game.reveal_enemy_hit_cells(cells)
                     game_interface.current_status = "You win"
+                    game.running = False
             else:
                 logging.info(f"Unknown status {response}")
                 raise Exception(f"Unknown status {response}")
@@ -282,14 +292,17 @@ def main():
                 game_interface.current_status = "You win (enemy left)"
                 logging.info('Enemy leave2')
             elif response.status == EnemyMoveStatus.Value("ENEMY_WIN"):
-                game.make_enemy_turn(response.point.x, response.point.y)
+                revealed_cells = game.make_enemy_turn(response.point.x, response.point.y)
+                game.reveal_my_cells(revealed_cells)
                 logging.info('Enemy win')
                 game_interface.current_status = "You lost"
+                game.running = False
             elif response.status == EnemyMoveStatus.Value("ENEMY_TURN"):
                 revealed_cells = game.make_enemy_turn(response.point.x, response.point.y)
                 game.reveal_my_cells(revealed_cells)
                 logging.info('Enemy turn2')
-                game_interface.current_status = "Your turn"
+                if all((cell.type != CellType.SHIP_HIT for cell in revealed_cells)):
+                    game_interface.current_status = "Your turn"
             else:
                 logging.info(f"Unknown status {response}")
                 raise Exception(f"Unknown status {response}")

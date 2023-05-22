@@ -63,7 +63,7 @@ class Server:
 
     def make_move(self, game_id: str, player_id: str, x: int, y: int) -> MoveResponse:
         game = self._games.get(game_id)
-        if game is None:
+        if game is None or not game.running:
             return MoveResponse(status=MoveStatus.Value("GAME_NOT_STARTED"))
 
         if not game.is_current_player(player_id):
