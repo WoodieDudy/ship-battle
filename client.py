@@ -21,6 +21,7 @@ logging.basicConfig(level=logging.INFO, filename="logs.txt", filemode="w",
                     format='%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s',
                     datefmt='%Y-%m-%d %H:%M:%S')
 
+SERVER_URL = "localhost:50051"
 COLORS = {
     CellType.EMPTY: (69, 145, 245),  # Голубой
     CellType.SHIP: (128, 84, 13),  # Коричневый
@@ -58,8 +59,8 @@ class GameInterface:
 
     def _setup_game_interface(self):
         self.screen.fill((69, 145, 245))
-        self._set_text('Ваше поле', BOARD_PADDING + BOARD_WIDTH // 2, BOARD_PADDING // 2, 30)
-        self._set_text('Поле противника', 2 * BOARD_PADDING + BOARD_WIDTH * 1.5, BOARD_PADDING // 2, 30)
+        self._set_text('Your board', BOARD_PADDING + BOARD_WIDTH // 2, BOARD_PADDING // 2, 30)
+        self._set_text('Enemy board', 2 * BOARD_PADDING + BOARD_WIDTH * 1.5, BOARD_PADDING // 2, 30)
 
     def _set_status_text(self):
         self._set_text(self.current_status, WINDOW_WIDTH // 2, WINDOW_HEIGHT - BOARD_PADDING // 2, 30)
@@ -110,7 +111,6 @@ class GameInterface:
         self.screen.blit(text, textRect)
 
     def quit(self):
-        logging.info("Quitting game2")
         pygame.quit()
         sys.exit()
 
@@ -120,7 +120,7 @@ class GameInterface:
 
 
 def _create_channel():
-    channel = grpc.insecure_channel("localhost:50051")
+    channel = grpc.insecure_channel(SERVER_URL)
     try:
         grpc.channel_ready_future(channel).result(timeout=15)
         return channel
@@ -140,7 +140,6 @@ def main():
             if ship.valid_position((BOARD_CELL_SIZE, BOARD_CELL_SIZE)):
                 break
         player_ships.append(ship)
-
 
     response_iterator = ResponseIterator()
     ship_battle_channel = _create_channel()
@@ -260,7 +259,7 @@ def main():
                         for cell in response.revealed_cells
                     ]
                     game.reveal_enemy_hit_cells(cells)
-                    game_interface.current_status = "Ход противника"
+                    game_interface.current_status = "Enemy turn"
                 elif response.status == MoveStatus.Value("WIN"):
                     cells = [
                         proto_cell_to_python_cell(cell)
@@ -280,17 +279,17 @@ def main():
         )
         for response in ship_client.listenEnemyMoves(enemy_moves_request):
             if response.status == EnemyMoveStatus.Value("ENEMY_LEAVE"):
-                game_interface.current_status = "Ты выиграл (противник ливнул)"
+                game_interface.current_status = "You win (enemy left)"
                 logging.info('Enemy leave2')
             elif response.status == EnemyMoveStatus.Value("ENEMY_WIN"):
                 game.make_enemy_turn(response.point.x, response.point.y)
-                logging.info('Enemy win2')
-                game_interface.current_status = "Ты проиграл"
+                logging.info('Enemy win')
+                game_interface.current_status = "You lost"
             elif response.status == EnemyMoveStatus.Value("ENEMY_TURN"):
                 revealed_cells = game.make_enemy_turn(response.point.x, response.point.y)
                 game.reveal_my_cells(revealed_cells)
                 logging.info('Enemy turn2')
-                game_interface.current_status = "Твой ход"
+                game_interface.current_status = "Your turn"
             else:
                 logging.info(f"Unknown status {response}")
                 raise Exception(f"Unknown status {response}")
